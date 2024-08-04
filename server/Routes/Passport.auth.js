@@ -46,11 +46,11 @@ router.get(
     // Redirect to frontend with token in query params
     res.redirect(`http://localhost:3000/home?token=${req.user.token}`);
     const token = req.user.token;
-    res.json({
-      success: true,
-      message: "Authentication successful",
-      token: token,
-    });
+    // res.json({
+    //   success: true,
+    //   message: "Authentication successful",
+    //   token: token,
+    // });
   }
 );
 
