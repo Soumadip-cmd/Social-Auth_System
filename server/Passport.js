@@ -1,3 +1,4 @@
+require('dotenv').config()
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
@@ -6,8 +7,8 @@ const User = require('./models/Users');
 
 
 const JWT_SECRET = "ycykicykckckyct"; // Environment variable for JWT secret
-const GOOGLE_CLIENT_ID = "  "; // Google Client ID from environment variable
-const GOOGLE_CLIENT_SECRET = "  "; // Google Client Secret from environment variable
+const GOOGLE_CLIENT_ID =process.env.GOOGLE_CLIENT_ID; // Google Client ID from environment variable
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET; // Google Client Secret from environment variable
 
 passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
