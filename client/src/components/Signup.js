@@ -1,17 +1,57 @@
-import React from 'react'
-import { NavLink } from "react-router-dom";
+import React, { useState } from 'react'
+import { NavLink, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+      
+      const [signup, setSignup] = useState({ name: "", email: "", password: ""})
+      const navigate=useNavigate()
+
+      const submit = async (e) => {
+            e.preventDefault()
+        
+            let { name, password, email } = signup;
+        
+            name = Array.isArray(name) ? name[0] : name;
+            password = Array.isArray(password) ? password[0] : password;
+            email = Array.isArray(email) ? email[0] : email;
+        
+            const url = " http://localhost:8000/create";
+            const response = await fetch(url, {
+              method: "POST",
+        
+              headers: {
+                "Content-Type": "application/json",
+        
+              },
+        
+              body: JSON.stringify({ name, password, email }),
+            });
+            let answer = await response.json()
+            if (answer.Success) {
+              // console.log(answer)
+              localStorage.setItem('iNote-Book[Tag]:', answer.token)
+              navigate('/home')
+              alert('Successfully Sign In..')
+            }
+            else {
+              alert('Invalid Credentials!..Check Again..')
+            }
+          }
+          const changing = (e) => {
+        
+            setSignup({ ...signup, [e.target.name]: [e.target.value] })
+          }
+      
   return (
     <>
      <div className=' stylishBG d-flex justify-content-center align-items-center flex-column ' style={{height:'100vh'}}>
       <div className="form-container">
       <p className="title">Sign Up</p>
-      <form className="form">
-        <input type="text" className="input" placeholder="Name"/>
+      <form className="form" onSubmit={submit}>
+        <input type="text" className="input" placeholder="Name" name="name" value={signup.name} onChange={changing} required/>
         
-        <input type="email" className="input" placeholder="Email"/>
-        <input type="password" className="input" placeholder="Password"/>
+        <input type="email" className="input" placeholder="Email" name="email" value={signup.email} onChange={changing} required/>
+        <input type="password" className="input" placeholder="Password" name="password" value={signup.password} onChange={changing} required/>
         
         <p className="page-link">
           <span className="page-link-label">Forgot Password?</span>
