@@ -24,6 +24,10 @@ const userSchema = new Schema({
     type: String,
     unique: true,
   },
+  facebookId: {
+    type: String,
+    unique: true,
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);

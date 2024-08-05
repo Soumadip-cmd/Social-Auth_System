@@ -28,6 +28,8 @@ router.get('/login/success', (req, res) => {
 });
 
 
+
+//google
 router.get('/google',
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
@@ -44,5 +46,26 @@ router.get('/google/callback',
     }
   }
 );
+
+
+//facebook
+router.get('/facebook',
+  passport.authenticate('facebook', { scope: ['public_profile', 'email'] })
+);
+
+
+router.get('/facebook/callback',
+  passport.authenticate('facebook', { session: false, failureRedirect: '/auth/login/failed' }),
+  function (req, res) {
+       
+    if (req.user && req.user.token) {
+      res.redirect(`http://localhost:3000/home?token=${req.user.token}`);
+    } else {
+      res.redirect('/auth/login/failed'); 
+    }
+  }
+);
+
+
 
 module.exports = router;

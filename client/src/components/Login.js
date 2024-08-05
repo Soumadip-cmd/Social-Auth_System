@@ -8,6 +8,9 @@ const Login = () => {
   const google=()=>{
     window.open('http://localhost:8000/auth/google','_self')
   }
+  const facebook=()=>{
+    window.open('http://localhost:8000/auth/facebook','_self')
+  }
 
   const submit = async (e) => {
     e.preventDefault();
@@ -77,7 +80,7 @@ const Login = () => {
           </NavLink>
         </p>
         <div className="buttons-container">
-          <div className="apple-login-button">
+          <div className="apple-login-button" onClick={facebook}>
             <svg
               stroke="currentColor"
               fill="currentColor"
