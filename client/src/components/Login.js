@@ -8,6 +8,7 @@ const Login = () => {
   const google=()=>{
     window.open('http://localhost:8000/auth/google','_self')
   }
+
   const submit = async (e) => {
     e.preventDefault();
     let email = Array.isArray(login.email) ? login.email[0] : login.email;

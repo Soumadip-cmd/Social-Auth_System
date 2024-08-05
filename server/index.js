@@ -2,19 +2,21 @@ const express = require("express");
 const path = require("path");
 const connectToMongo = require("./Db");
 const cors = require("cors");
-const passport = require("passport");
-const passportJs = require('./Passport');
-const passportAuth = require('./Routes/Passport.auth');
+const passport=require('passport')
+const passportJs=require('./Passport')
+const passportAuth=require('./Routes/Passport.auth')
 
 const app = express();
 connectToMongo();
 
 const port = 8000;
 
+app.use('/auth',passportAuth)
+
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
-
 app.use(passport.initialize());
+
 
 
 
@@ -29,7 +31,7 @@ app.use(
 );
 
 app.use(require(path.join(__dirname, "Routes/auth.js")));
-app.use('/auth', passportAuth);
+
 
 app.get("/test", (req, res) => {
   try {
